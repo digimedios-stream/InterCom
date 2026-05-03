@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STREAMTALK V9.0 - Sistema de Intercom Web</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- HEADER GENERAL -->
+    <header class="app-header">
+      <div class="header-logo">
+        <h1 class="glow-text">STREAMTALK <span class="v9">V9.0</span></h1>
+        <p class="subtitle">COMUNICACIÓN PROFESIONAL EN TIEMPO REAL</p>
+      </div>
+    </header>
+
+    <!-- VIEW 1: SELECCIÓN DE ROL / LANDING -->
+    <main id="landing-view" class="view active">
+      <div class="card intro-card">
+        <h2><i class="fa-solid fa-satellite-dish"></i> UN SISTEMA DE INTERCOM WEB TIPO WALKIE-TALKIE PROFESIONAL</h2>
+        <p class="description-lead">Conecta a todo tu equipo con baja latencia, matriz de ruteo y modo bolsillo.</p>
+      </div>
+
+      <div class="landing-grid">
+        <!-- DIRECTOR CARD -->
+        <div class="card role-card director-glow">
+          <h3><i class="fa-solid fa-user-tie"></i> Panel del Director</h3>
+          <p>Crea o únete a una sala para controlar el ruteo de canales y hablar con el crew.</p>
+          
+          <div class="form-group">
+            <label for="director-room">Código de Sala:</label>
+            <input type="text" id="director-room" placeholder="Ej: 8275" maxlength="6" value="8275">
+          </div>
+          
+          <button id="btn-join-director" class="btn btn-primary">
+            <i class="fa-solid fa-right-to-bracket"></i> Iniciar Matriz de Ruteo
+          </button>
+        </div>
+
+        <!-- CREW CARD -->
+        <div class="card role-card crew-glow">
+          <h3><i class="fa-solid fa-headset"></i> Vista del Equipo (Crew)</h3>
+          <p>Únete como miembro del equipo con tu rol designado para escuchar y hablar.</p>
+          
+          <div class="form-group">
+            <label for="crew-room">Código de Sala:</label>
+            <input type="text" id="crew-room" placeholder="Ej: 8275" maxlength="6" value="8275">
+          </div>
+          
+          <div class="form-group">
+            <label for="crew-name">Nombre / Rol en Crew:</label>
+            <input type="text" id="crew-name" placeholder="Ej: CAM 1, SONIDO, PISO" value="CAM 1">
+          </div>
+          
+          <button id="btn-join-crew" class="btn btn-success">
+            <i class="fa-solid fa-user-plus"></i> Unirse al Crew
+          </button>
+        </div>
+      </div>
+
+      <!-- FEATURES INFO FOOTER -->
+      <section class="footer-features">
+        <div class="feature-item">
+          <i class="fa-solid fa-circle-nodes"></i>
+          <div>
+            <h4>MATRIZ DE AUDIO</h4>
+            <p>Habla a todos o a canales específicos</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <i class="fa-solid fa-microphone"></i>
+          <div>
+            <h4>PUSH TO TALK</h4>
+            <p>Habla solo mientras presionas</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <i class="fa-solid fa-bolt"></i>
+          <div>
+            <h4>BAJA LATENCIA</h4>
+            <p>Audio en tiempo real y alta calidad</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <i class="fa-solid fa-battery-three-quarters"></i>
+          <div>
+            <h4>MONITOREO DE BATERÍA</h4>
+            <p>Visualiza el nivel de tu equipo</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <i class="fa-solid fa-mobile-screen"></i>
+          <div>
+            <h4>MODO BOLSILLO</h4>
+            <p>Pantalla negra para evitar toques accidentales</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- VIEW 2: DIRECTOR PANEL -->
+    <main id="director-view" class="view">
+      <div class="panel-header">
+        <div class="panel-info">
+          <h2>1. PANEL DEL DIRECTOR (MATRIZ DE RUTEO)</h2>
+          <div class="status-badge pulse-badge" id="dir-connection-status">
+            Matriz Activa. Esperando al Crew...
+          </div>
+        </div>
+        <div class="panel-actions">
+          <span class="room-display">SALA: <strong id="dir-room-display">8275</strong></span>
+          <button id="btn-copy-link" class="btn btn-secondary btn-sm">
+            <i class="fa-solid fa-link"></i> COPIAR LINK
+          </button>
+        </div>
+      </div>
+
+      <div class="director-grid">
+        <!-- MATRIZ DE RUTEO -->
+        <div class="card matrix-card">
+          <div class="matrix-header">
+            <h3>DESTINOS DE AUDIO (RUTEO)</h3>
+            <button id="btn-party-mix" class="btn btn-outline btn-sm">
+              <i class="fa-solid fa-music"></i> PARTY MIX OFF
+            </button>
+          </div>
+
+          <div class="matrix-buttons" id="matrix-routing-buttons">
+            <!-- Dynamic and Static routing buttons -->
+            <button class="matrix-btn active" data-target="todos"><i class="fa-solid fa-bullhorn"></i> TODOS</button>
+            <button class="matrix-btn" data-target="CAM 1">CAM 1</button>
+            <button class="matrix-btn" data-target="CAM 2">CAM 2</button>
+            <button class="matrix-btn" data-target="CAM 3">CAM 3</button>
+            <button class="matrix-btn" data-target="CAM 4">CAM 4</button>
+            <button class="matrix-btn" data-target="SONIDO">SONIDO</button>
+            <button class="matrix-btn" data-target="PISO">PISO</button>
+          </div>
+
+          <div class="ptt-container">
+            <button id="btn-director-ptt" class="ptt-btn">
+              <div class="ptt-icon-container">
+                <i class="fa-solid fa-microphone"></i>
+              </div>
+              <span class="ptt-status">SILENCIO</span>
+              <span class="ptt-help">Toca para hablar al destino</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- LISTADO DE CREW CONECTADO -->
+        <div class="card crew-list-card">
+          <div class="list-header">
+            <h3>CONECTADOS EN SALA (<span id="crew-count">0</span>)</h3>
+            <div class="retorno-status">
+              <i class="fa-solid fa-headphones"></i> RECIBIENDO RETORNO DEL CREW
+            </div>
+          </div>
+
+          <div class="crew-members-list" id="crew-members-list">
+            <!-- Template element for connected crew member -->
+            <p class="empty-list-msg">No hay miembros del equipo conectados aún.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="view-footer">
+        <button id="btn-leave-director" class="btn btn-danger btn-sm">
+          <i class="fa-solid fa-right-from-bracket"></i> Salir de la Matriz
+        </button>
+      </div>
+    </main>
+
+    <!-- VIEW 3: VISTA DEL EQUIPO (CREW) -->
+    <main id="crew-view" class="view">
+      <div class="panel-header">
+        <div class="panel-info">
+          <h2>2. VISTA DEL EQUIPO (CREW)</h2>
+          <div class="status-badge online-badge">
+            <i class="fa-solid fa-circle"></i> EN LÍNEA
+          </div>
+        </div>
+        <div class="panel-actions">
+          <span class="room-display">SALA: <strong id="crew-room-display">8275</strong></span>
+          <span class="crew-role-display glow-green" id="crew-role-display">CAM 1</span>
+        </div>
+      </div>
+
+      <div class="crew-content">
+        <!-- CANAL AUDÍFONOS MUTE/ACTIVO -->
+        <div class="card crew-monitor-card" id="crew-status-card">
+          <div class="earphones-icon-status" id="earphones-status">
+            <i class="fa-solid fa-headphones-simple"></i>
+          </div>
+          <p id="earphones-msg" class="earphones-muted">CANAL SILENCIADO</p>
+        </div>
+
+        <!-- HUGE PTT BUTTON FOR CREW -->
+        <div class="crew-ptt-container">
+          <button id="btn-crew-ptt" class="btn-crew-ptt-element">
+            <span class="ptt-label-primary">PUSH TO TALK</span>
+            <span class="ptt-label-secondary">Mantén presionado para hablar</span>
+          </button>
+        </div>
+
+        <!-- MODO BOLSILLO TRIGGER -->
+        <button id="btn-pocket-mode" class="btn btn-pocket">
+          <i class="fa-solid fa-mobile-button"></i> ACTIVAR MODO BOLSILLO
+        </button>
+
+        <p class="pocket-instruction">
+          <strong>IMPORTANTE:</strong> NO APAGUES LA PANTALLA CON EL BOTÓN DEL CELULAR, USA EL "MODO BOLSILLO" PARA SIMULAR LA PANTALLA APAGADA Y EVITAR QUE EL TELÉFONO CORTE EL AUDIO.
+        </p>
+
+        <!-- ALERTA AL DIRECTOR BUTTON -->
+        <button id="btn-crew-alert" class="btn btn-outline-danger btn-block">
+          <i class="fa-solid fa-triangle-exclamation"></i> ¡ALERTA! Enviar aviso al Director
+        </button>
+      </div>
+
+      <div class="view-footer">
+        <button id="btn-leave-crew" class="btn btn-danger btn-sm">
+          <i class="fa-solid fa-right-from-bracket"></i> Salir de Sala
+        </button>
+      </div>
+    </main>
+
+    <!-- MODO BOLSILLO OVERLAY (PANTALLA OSCURA) -->
+    <div id="pocket-overlay" class="pocket-overlay-element">
+      <div class="pocket-overlay-content">
+        <p><i class="fa-solid fa-mobile-screen-button"></i> MODO BOLSILLO ACTIVO</p>
+        <button id="btn-exit-pocket" class="btn btn-success btn-lg">
+          <i class="fa-solid fa-hand-pointer"></i> Salir del Modo Bolsillo
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Realtime Alert Popup Toast Container -->
+  <div id="alert-toast-container" class="alert-toast-container"></div>
+
+  <!-- Socket.io library -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- Application script -->
+  <script src="app.js"></script>
+</body>
+</html>

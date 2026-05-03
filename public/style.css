@@ -808,3 +808,23 @@ input:focus {
   from { opacity: 0; transform: translateX(20px); }
   to { opacity: 1; transform: translateX(0); }
 }
+
+/* BRAND FOOTER */
+.app-footer-brand {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.app-footer-brand .powered-by {
+  font-size: 0.72rem;
+  color: #10b981;
+  text-shadow: 0 0 8px var(--success-glow);
+  margin-top: 0.25rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}

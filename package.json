@@ -1,7 +1,7 @@
 {
   "name": "intercom",
   "version": "1.0.0",
-  "description": "StreamTalk V9.0 Real-time Web Intercom",
+  "description": "InterCom Real-time Web Intercom",
   "main": "server.js",
   "type": "module",
   "scripts": {

@@ -1,4 +1,4 @@
-// STREAMTALK V9.0 APPLICATION LOGIC
+// INTERCOM APPLICATION LOGIC
 
 let socket;
 let currentRoom = '';
